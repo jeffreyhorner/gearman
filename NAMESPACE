@@ -1,0 +1,3 @@
+exportClass(GearmanClient)
+export(GearmanClient)
+useDynLib(gearman,.registration=TRUE)

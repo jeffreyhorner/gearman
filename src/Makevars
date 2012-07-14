@@ -1,0 +1,2 @@
+PKG_CFLAGS= -I$(GEARMAN_HOME)/include
+PKG_LIBS = -L$(GEARMAN_HOME)/lib -lgearman

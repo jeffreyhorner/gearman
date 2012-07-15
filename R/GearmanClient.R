@@ -15,25 +15,26 @@ GearmanClient <- setRefClass(
       addServers = function(servers){
          invisible(.Call(gearman:::addservers,client,servers))
       },
-      doBackground = function(){
-         .Call(gearman:::dotask,client,background=TRUE,high=NA)
+      doNormal = function(fun=NULL,work=NULL,uval=NULL){
+         .Call(gearman:::dotask,client,fun,work,uval,background=FALSE,high=NULL)
       },
-      doHigh = function(){
-         .Call(gearman:::dotask,client,background=FALSE,high=TRUE)
+      doHigh = function(fun=NULL,work=NULL,uval=NULL){
+         .Call(gearman:::dotask,client,fun,work,uval,background=FALSE,high=TRUE)
       },
-      doHighBackground = function(){
-         .Call(gearman:::dotask,client,background=TRUE,high=TRUE)
+      doLow = function(fun=NULL,work=NULL,uval=NULL){
+         .Call(gearman:::dotask,client,fun,work,uval,background=FALSE,high=FALSE)
       },
-      doLow = function(){
-         .Call(gearman:::dotask,client,background=FALSE,high=FALSE)
+      doBackground = function(fun=NULL,work=NULL,uval=NULL){
+         .Call(gearman:::dotask,client,fun,work,uval,background=TRUE,high=NULL)
       },
-      doLowBackground = function(){
-         .Call(gearman:::dotask,client,background=TRUE,high=FALSE)
+      doHighBackground = function(fun=NULL,work=NULL,uval=NULL){
+         .Call(gearman:::dotask,client,fun,work,uval,background=TRUE,high=TRUE)
       },
-      doNormal = function(){
-         .Call(gearman:::dotask,client,background=FALSE,high=NA)
+      doLowBackground = function(fun=NULL,work=NULL,uval=NULL){
+         .Call(gearman:::dotask,client,fun,work,uval,background=TRUE,high=FALSE)
       },
-      jobStatus = function(){
+      jobStatus = function(job=NULL){
+         .Call(gearman:::jobstatus,client,job)
       },
       success = function() .Call(gearman:::success,client),
       failed = function() .Call(gearman:::failed,client),

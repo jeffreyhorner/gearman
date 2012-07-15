@@ -102,12 +102,73 @@ SEXP addservers(SEXP Sclient, SEXP Sservers){
    return success(Sclient);
 }
 
-/*
-SEXP dotask(SEXP Sclient, ...){
+SEXP dotask(SEXP Sclient, SEXP Sfun, SEXP Swork, SEXP Suval, SEXP Sback, SEXP Shigh){
+   rgearman_client_t *client = (rgearman_client_t *)R_ExternalPtrAddr(Sclient);
+   SEXP ret;
+   const char *fun, *work, *uval;
+   int back, high;
+
+   fun = (Sfun != R_NilValue)? (const char *)CHAR(STRING_ELT(Sfun,0)) : NULL;
+   work = (Swork != R_NilValue)? (const char *)CHAR(STRING_ELT(Swork,0)) : NULL;
+   uval = (Suval != R_NilValue)? (const char *)CHAR(STRING_ELT(Suval,0)) : NULL;
+
+   back = LOGICAL(Sback)[0];
+   high = (Shigh != R_NilValue) ? LOGICAL(Shigh)[0] : -1;
+
+   if (back){
+      gearman_return_t (*gm_fun)(gearman_client_st *client, const char *function_name, const char *unique, const void *workload, size_t workload_size, gearman_job_handle_t job_handle); 
+      char *job = (char *)R_Calloc(1,gearman_job_handle_t);
+      gm_fun = (high == -1)? gearman_client_do_background : (high)? gearman_client_do_high_background : gearman_client_do_low_background ;
+      client->lastretcode = gm_fun(client->client,fun,uval,work,strlen(work),job);
+      ret = PROTECT(allocVector(STRSXP,1));
+      SET_STRING_ELT(ret,0,mkChar(job));
+      R_Free(job);
+      UNPROTECT(1);
+   } else {
+      void *(*gm_fun)(gearman_client_st *client, const char *function_name, const char *unique, const void *workload, size_t workload_size, size_t *result_size, gearman_return_t *ret_ptr); 
+      size_t resultsize;
+      void *result;
+      gm_fun = (high == -1)? gearman_client_do : (high)? gearman_client_do_high : gearman_client_do_low ;
+      result = gm_fun(client->client,fun,uval,work,strlen(work),&resultsize,&client->lastretcode);
+      ret = PROTECT(allocVector(STRSXP,1));
+      SET_STRING_ELT(ret,0,mkCharLen((char *)result,resultsize));
+      UNPROTECT(1);
+   }
+
+   return ret;
 }
 
-SEXP jobstatus(SEXP Sclient){
-} */
+SEXP jobstatus(SEXP Sclient, SEXP Sjob){
+   rgearman_client_t *client = (rgearman_client_t *)R_ExternalPtrAddr(Sclient);
+   const char *job;
+   bool isknown, isrunning;
+   uint32_t numerator, denominator;
+   SEXP ans, nms;
+
+   job = (Sjob != R_NilValue)? (const char *)CHAR(STRING_ELT(Sjob,0)) : NULL;
+
+   client->lastretcode = gearman_client_job_status(client->client,job, &isknown, &isrunning, &numerator, &denominator);
+
+   PROTECT(ans = allocVector(VECSXP, 4));
+   PROTECT(nms = allocVector(STRSXP, 4));
+
+   SET_STRING_ELT(nms,0,mkChar("known"));
+   SET_VECTOR_ELT(ans,0,ScalarLogical(isknown==TRUE));
+
+   SET_STRING_ELT(nms,1,mkChar("running"));
+   SET_VECTOR_ELT(ans,1,ScalarLogical(isrunning==TRUE));
+
+   SET_STRING_ELT(nms,2,mkChar("numerator"));
+   SET_VECTOR_ELT(ans,2,ScalarReal((double)numerator));
+
+   SET_STRING_ELT(nms,3,mkChar("denominator"));
+   SET_VECTOR_ELT(ans,3,ScalarReal((double)denominator));
+
+   setAttrib(ans, R_NamesSymbol, nms);
+
+   UNPROTECT(2);
+   return ans;
+}
 
 
 R_CallMethodDef callMethods[] = {
@@ -115,8 +176,8 @@ R_CallMethodDef callMethods[] = {
    {"finalizeclient", (DL_FUNC) &finalizeclient, 1},
    {"addserver", (DL_FUNC) &addserver, 3},
    {"addservers", (DL_FUNC) &addservers, 2},
-/*   {"dotask", (DL_FUNC) &dotask, 0}, 
-   {"jobstatus, (DL_FUNC) &jobstatus, 0}, */
+   {"dotask", (DL_FUNC) &dotask, 6}, 
+   {"jobstatus", (DL_FUNC) &jobstatus, 2},
    {"success", (DL_FUNC) &success, 1},
    {"failed", (DL_FUNC) &failed, 1},
    {"continue", (DL_FUNC) &gm_continue, 1},

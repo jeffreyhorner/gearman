@@ -13,7 +13,7 @@ GearmanClient <- setRefClass(
          invisible(.Call(gearman:::addserver,client,host,port))
       },
       addServers = function(servers){
-         invisible(.Call(gearman:::addserver,client,servers))
+         invisible(.Call(gearman:::addservers,client,servers))
       },
       doBackground = function(){
          .Call(gearman:::dotask,client,background=TRUE,high=NA)
@@ -34,7 +34,7 @@ GearmanClient <- setRefClass(
          .Call(gearman:::dotask,client,background=FALSE,high=NA)
       },
       jobStatus = function(){
-      }
+      },
       success = function() .Call(gearman:::success,client),
       failed = function() .Call(gearman:::failed,client),
       continue = function() .Call(gearman:::continue,client),

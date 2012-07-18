@@ -10,7 +10,7 @@ GearmanClient <- setRefClass(
          .Call(gearman:::finalizeclient,client)
       },
       addServer = function(host=NULL,port=0L){
-         invisible(.Call(gearman:::addserver,client,host,port))
+         invisible(.Call(gearman:::addserver,client,host,as.integer(port)))
       },
       addServers = function(servers){
          invisible(.Call(gearman:::addservers,client,servers))

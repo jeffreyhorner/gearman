@@ -1,0 +1,13 @@
+#!/bin/sh
+
+os=`"${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e "cat(gsub('[-.0-9]','',R.Version()\\$os))"`
+
+echo "OS is $os"
+
+if [ $os = "darwin" ]; then
+    cp src/Makevars.osx src/Makevars
+else
+    cp src/Makevars.unix src/Makevars
+fi
+
+

@@ -1,7 +1,6 @@
 /* config.h.  Generated from config.in by configure.  */
 /* config.in.  Generated from configure.ac by autoheader.  */
 
-
 /* Define if building universal (internal helper macro) */
 /* #undef AC_APPLE_UNIVERSAL_BUILD */
 
@@ -63,7 +62,7 @@
 /* #undef HAVE_BTOWC */
 
 /* Have a working clock_gettime function */
-#define HAVE_CLOCK_GETTIME 1
+/* #undef HAVE_CLOCK_GETTIME */
 
 /* Define to 1 if you have the <curl/curl.h> header file. */
 /* #undef HAVE_CURL_CURL_H */
@@ -161,13 +160,13 @@
 #define HAVE_LIBPQ 0 
 
 /* Have clock_gettime */
-#define HAVE_LIBRT 1 
+#define HAVE_LIBRT 0 
 
 /* Define to 1 if you have the `socket' library (-lsocket). */
 /* #undef HAVE_LIBSOCKET */
 
 /* Have the SQLITE3 library */
-#define HAVE_LIBSQLITE3 0 
+#define HAVE_LIBSQLITE3 1 
 
 /* Define to 1 if you have the `tcmalloc' library (-ltcmalloc). */
 /* #undef HAVE_LIBTCMALLOC */
@@ -183,7 +182,7 @@
 /* #undef HAVE_LIBUMEM */
 
 /* Define to 1 if LIBUUID is found */
-#define HAVE_LIBUUID 1
+/* #undef HAVE_LIBUUID */
 
 /* Define to 1 if you have the <limits.h> header file. */
 #define HAVE_LIMITS_H 1
@@ -199,7 +198,7 @@
 #define HAVE_MBSTATE_T 1
 
 /* If Memcached binary is available */
-#define HAVE_MEMCACHED_BINARY 0
+#define HAVE_MEMCACHED_BINARY 1
 
 /* Support for memcached_light */
 #define HAVE_MEMCACHED_LIGHT_BINARY 0
@@ -223,13 +222,13 @@
 #define HAVE_MSG_DONTWAIT 1
 
 /* Define to 1 if you have a MSG_MORE */
-#define HAVE_MSG_MORE 1
+/* #undef HAVE_MSG_MORE */
 
 /* Define to 1 if you have a MSG_NOSIGNAL */
-#define HAVE_MSG_NOSIGNAL 1
+/* #undef HAVE_MSG_NOSIGNAL */
 
 /* Define to 1 if MySQL libraries are available */
-/* #undef HAVE_MYSQL */
+#define HAVE_MYSQL 1
 
 /* Define to 1 if MySQL libraries are available */
 #define HAVE_MYSQL_BUILD 0
@@ -244,10 +243,10 @@
 #define HAVE_NETINET_TCP_H 1
 
 /* Define to 1 if you have O_CLOEXEC defined */
-#define HAVE_O_CLOEXEC 1
+/* #undef HAVE_O_CLOEXEC */
 
 /* Define to 1 if you have the `pipe2' function. */
-#define HAVE_PIPE2 1
+/* #undef HAVE_PIPE2 */
 
 /* Define to 1 if PostgreSQL libraries are available */
 /* #undef HAVE_POSTGRESQL */
@@ -281,7 +280,7 @@
 #define HAVE_SOCKET 1
 
 /* Have the SQLITE3 library */
-/* #undef HAVE_SQLITE3 */
+#define HAVE_SQLITE3 /**/
 
 /* Define to 1 if you have the <stdarg.h> header file. */
 #define HAVE_STDARG_H 1
@@ -390,20 +389,20 @@
 /* #undef HAVE__BOOL */
 
 /* CPU of Build System */
-#define HOST_CPU "i686"
+#define HOST_CPU "x86_64"
 
 /* OS of Build System */
-#define HOST_OS "linux-gnu"
+#define HOST_OS "darwin10.8.0"
 
 /* Vendor of Build System */
-#define HOST_VENDOR "pc"
+#define HOST_VENDOR "apple"
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
 #define LT_OBJDIR ".libs/"
 
 /* Name of the memcached binary used in make test */
-#define MEMCACHED_BINARY 0
+#define MEMCACHED_BINARY "/usr/bin/memcached"
 
 /* Support for memcached_light */
 #define MEMCACHED_LIGHT_BINARY ""
@@ -452,7 +451,7 @@
 #define SIZEOF_OFF_T 8
 
 /* Size of size_t as computed by sizeof() */
-#define SIZEOF_SIZE_T 4
+#define SIZEOF_SIZE_T 8
 
 /* If using the C implementation of alloca, define if you know the
    direction of stack growth for your system; otherwise it will be
@@ -469,22 +468,22 @@
 #define STDC_HEADERS 1
 
 /* Define to 1 if strerror_r returns char *. */
-#define STRERROR_R_CHAR_P 1
+/* #undef STRERROR_R_CHAR_P */
 
 /* CPU of Target System */
-#define TARGET_CPU "i686"
+#define TARGET_CPU "x86_64"
 
 /* OS of Target System */
-#define TARGET_OS "linux-gnu"
+#define TARGET_OS "darwin10.8.0"
 
 /* Whether we are building for FreeBSD */
 /* #undef TARGET_OS_FREEBSD */
 
 /* Whether we build for Linux */
-#define TARGET_OS_LINUX 1
+/* #undef TARGET_OS_LINUX */
 
 /* Whether we build for OSX */
-/* #undef TARGET_OS_OSX */
+#define TARGET_OS_OSX 1
 
 /* Whether we are building for Solaris */
 /* #undef TARGET_OS_SOLARIS */
@@ -493,7 +492,7 @@
 /* #undef TARGET_OS_WINDOWS */
 
 /* Vendor of Target System */
-#define TARGET_VENDOR "pc"
+#define TARGET_VENDOR "apple"
 
 /* Define to 1 if time_t is unsigned */
 /* #undef TIME_T_UNSIGNED */
@@ -523,7 +522,7 @@
 #endif
 
 /* Number of bits in a file offset, on hosts where this is settable. */
-#define _FILE_OFFSET_BITS 64
+/* #undef _FILE_OFFSET_BITS */
 
 /* Define for large files, on AIX-style hosts. */
 /* #undef _LARGE_FILES */

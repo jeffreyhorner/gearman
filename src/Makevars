@@ -1,2 +1,3 @@
-PKG_CFLAGS= -I$(GEARMAN_HOME)/include
-PKG_LIBS = -L$(GEARMAN_HOME)/lib -lgearman
+PKG_CFLAGS= -I.
+PKG_CXXFLAGS= -I.
+PKG_LIBS = -luuid

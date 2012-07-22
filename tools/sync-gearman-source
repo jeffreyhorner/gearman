@@ -1,0 +1,40 @@
+#!/bin/bash
+
+if ! test -d "$1"; then
+   echo "Need path to gearman source"
+   exit
+fi
+
+if ! test -d ./src || ! test -d ./R || ! test -d man; then
+   echo "Set working dir to top of R gearman package"
+   exit
+fi
+
+# Build config.h by hand and include a hacked version as gearman_config.h
+PACKAGE_VERSION=`grep PACKAGE_VERSION= ${1}/configure | awk -F= '{print $2}' | tr -d \'`
+rm -f src/config.h
+
+echo "#include <R.h>" > src/config.h
+echo "#define PACKAGE_VERSION \"$PACKAGE_VERSION\"" >> src/config.h
+echo -e "#if defined WIN32 \n#include \"win_config.h\"\n" >> src/config.h
+echo -e "#elif defined __APPLE__ \n#include \"osx_config.h\"\n" >> src/config.h
+echo -e "#else\n#include \"unix_config.h\"\n#endif" >> src/config.h
+
+# Copy source files
+cp -a ${1}/libgearman/ src/
+mv src/libgearman/*.cc src/
+mv src/libgearman/protocol/*.cc src/
+mv src/libgearman/function/*.cc src/
+cp -a ${1}/libgearman-1.0/ src/
+rm -rf src/libgearman-1.0/t 
+
+# Fixup assert_msg
+echo "#define	assert_msg(__expr, __mesg)	((void)0)" >> src/libgearman/assert.hpp
+
+# Remove unneeded files
+ find src -name "*.am" -exec rm \{} \;
+ find src -name "*.lo" -exec rm \{} \;
+ find src -name "*.o" -exec rm \{} \;
+ find src -name "*.so" -exec rm \{} \;
+ find . -type d -name .deps -exec rm -rf \{} \; # ignore errors
+

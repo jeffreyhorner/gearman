@@ -143,7 +143,7 @@ gearman_return_t submit_epoch(gearman_task_st& task,
   args_size[1]= gearman_size(unique) +1;
 
   char time_string[30];
-  int length= snprintf(time_string, sizeof(time_string), "%lld", static_cast<long long>(when));
+  int length= snprintf(time_string, sizeof(time_string), "%lu", (unsigned long)when);
   args[2]= time_string;
   args_size[2]= length +1;
 

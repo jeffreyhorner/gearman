@@ -50,7 +50,7 @@
 #endif
 
 #ifdef __cplusplus
-#  include <tr1/cinttypes>
+#  include CINTTYPES_H
 #  include <cstddef>
 #  include <cstdlib>
 #  include <ctime>

@@ -6,8 +6,10 @@ echo "OS is $os"
 
 if [ $os = "darwin" ]; then
     cp src/Makevars.osx src/Makevars
-    kernel_version=`uname -r | awk -F. '{printf "%d.%d\n",$1,$2}'`
-    cp src/osx_config.h.${kernel_version} src/osx_config.h
+    kernel_version=`uname -r | awk -F. '{printf "%d\n",$1}'`
+    if [ $kernel_version -le "9" ]; then
+        cp src/osx_config.h.legacy src/osx_config.h
+    fi
 else
     cp src/Makevars.unix src/Makevars
 fi

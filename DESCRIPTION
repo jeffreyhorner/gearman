@@ -1,7 +1,7 @@
 Package: gearman
 Title: R interface to the Gearman Job Server
-Version: 0.1-4
-Date: 2012-08-01
+Version: 0.1-5
+Date: 2013-07-02
 Author: Jeffrey Horner
 Maintainer: Jeffrey Horner <jeffrey.horner@gmail.com>
 Depends: R (>= 2.13.0), methods

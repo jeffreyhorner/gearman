@@ -471,7 +471,7 @@
 /* #undef STRERROR_R_CHAR_P */
 
 /* CPU of Target System */
-/* #define TARGET_CPU "x86_64"
+/* #define TARGET_CPU "x86_64" */
 
 /* OS of Target System */
 #define TARGET_OS "darwin10.8.0"

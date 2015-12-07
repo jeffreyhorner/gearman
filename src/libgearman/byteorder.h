@@ -17,11 +17,15 @@
 
 #ifndef HAVE_HTONLL
 
+#ifndef ntohll
 GEARMAN_INTERNAL_API
 uint64_t ntohll(uint64_t);
+#endif
 
+#ifndef htonll
 GEARMAN_INTERNAL_API
 uint64_t htonll(uint64_t);
+#endif
 
 #endif
 

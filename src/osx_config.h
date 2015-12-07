@@ -5,7 +5,7 @@
 /* #undef AC_APPLE_UNIVERSAL_BUILD */
 
 /* the location of <cinttypes> */
-#define CINTTYPES_H <tr1/cinttypes>
+#define CINTTYPES_H <cinttypes>
 
 /* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
    systems. This function is required for `alloca.c' support on those systems.
@@ -13,7 +13,7 @@
 /* #undef CRAY_STACKSEG_END */
 
 /* the location of <cstdint> */
-#define CSTDINT_H <tr1/cstdint>
+#define CSTDINT_H <cstdint>
 
 /* Define to 1 if using `alloca.c'. */
 /* #undef C_ALLOCA */
